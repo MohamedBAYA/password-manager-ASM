@@ -17,19 +17,19 @@ Un gestionnaire de mots de passe simple, développé en assembleur **x64**, perm
 
 ## 📌 Répartition des Tâches
 
-👤 **Gestion des E/S utilisateur** (**[Nom du membre 1]**)  
+👤 **Gestion des E/S utilisateur** (**[Dylan]**)  
 ➜ Développement des **entrées/sorties** : lecture du clavier, affichage du menu et interaction avec l'utilisateur.  
 ➜ Masquer la saisie des mots de passe lorsqu'ils sont tapés.  
 
-🔐 **Chiffrement des mots de passe** (**[Nom du membre 2]**)  
+🔐 **Chiffrement des mots de passe** (**[Clément]**)  
 ➜ Implémentation d'un **chiffrement XOR** dans un premier temps.  
 ➜ Si le temps le permet, ajout d’un chiffrement plus avancé comme **AES** ou **SHA**.  
 
-📁 **Gestion du stockage** (**[Nom du membre 3]**)  
+📁 **Gestion du stockage** (**[Jordan]**)  
 ➜ Lecture et écriture des mots de passe dans un **fichier sécurisé**.  
 ➜ Assurer la gestion des erreurs et la protection contre la corruption du fichier.  
 
-🛠 **Intégration & Gestion globale** (**[Nom du membre 4]**)  
+🛠 **Intégration & Gestion globale** (**[Mohamed]**)  
 ➜ **Assembler toutes les parties** en un programme fonctionnel.  
 ➜ Vérifier la **compatibilité des modules** et gérer les appels entre eux.  
 ➜ **Tests et débogage** pour s'assurer que chaque partie fonctionne correctement ensemble.  
