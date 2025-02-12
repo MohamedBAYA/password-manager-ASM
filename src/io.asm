@@ -14,6 +14,12 @@ section .data
     menu_option4 db '4. Supprimer un mot de passe', 0xA
     menu_option4_len equ $ - menu_option4
 
+    menu_end db '------', 0xA
+    menu_end_len equ $ - menu_end
+
+    menu_write db 'Saisit : '
+    menu_write_len equ $ - menu_write
+
     menu_exit db '5. Quitter', 0xA
     menu_exit_len equ $ - menu_exit
 
@@ -30,6 +36,7 @@ section .text
     global read_char
     global handle_user_input
     global read_input_string
+    global clear_input_buffer
 
 ; Fonction principale
 _start:
@@ -110,6 +117,16 @@ display_menu:
     mov rsi, menu_exit_len
     call print_string
 
+    ; Imprimer les trait de séparation
+    mov rdi, menu_end
+    mov rsi, menu_end_len
+    call print_string
+
+    ; Imprimer l'affichage de saisit
+    mov rdi, menu_write
+    mov rsi, menu_write_len
+    call print_string
+
     pop rsi
     pop rdi
 
@@ -127,6 +144,38 @@ read_char:
 
     movzx rax, byte [rsp + 8]
 
+    ; Vider l'entrée utilisateur
+    call clear_input_buffer
+
+    ret
+
+; Fonction pour vider l'entrée utilisateur
+clear_input_buffer:
+    push rax
+    push rdi
+    push rsi
+    push rdx
+
+.clear_loop:
+    ; Lire un caractère
+    mov rax, 0
+    mov rdi, 0
+    lea rsi, [rsp - 1]
+    mov rdx, 1
+    syscall
+
+    ; Vérifier si le caractère est une nouvelle ligne
+    cmp byte [rsp - 1], 0xA
+    je .clear_done
+
+    ; Continuer à lire jusqu'à la nouvelle ligne
+    jmp .clear_loop
+
+.clear_done:
+    pop rdx
+    pop rsi
+    pop rdi
+    pop rax
     ret
 
 handle_user_input:
@@ -161,7 +210,7 @@ handle_user_input:
 .call_add_password:
     ; Logique pour ajouter un mot de passe
     lea rsi, [input_buffer]
-    mov rdx, 50
+    mov rdx, 256
     call read_input_string
     jmp .end_handle_input
 
@@ -188,6 +237,7 @@ read_input_string:
     push rax
     push rdx
 
+    ; Lire l'entrée utilisateur
     mov rax, 0
     mov rdi, 0
     syscall
