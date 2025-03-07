@@ -1,10 +1,10 @@
 section .data
     newline db 0xA              ; Caractère de nouvelle ligne
-    xor_key db 0xAA             ; Clé XOR (à personnaliser)
+    xor_key db 0xAA             ; Clé XOR
 
 section .bss
-    file_handle resq 1          ; Handle du fichier
-    line_buffer resb 256        ; Buffer pour stocker la ligne à écrire
+    file_handle resq 1
+    line_buffer resb 256
 
 section .text
     global _start
@@ -12,7 +12,7 @@ section .text
 _start:
     ; Récupérer les arguments de la ligne de commande
     pop rcx                     ; Nombre d'arguments (argc)
-    cmp rcx, 3                  ; Vérifier qu'il y a exactement 2 arguments (plus le nom du programme)
+    cmp rcx, 3
     jne exit_program            ; Si ce n'est pas le cas, quitter
 
     ; Récupérer les arguments

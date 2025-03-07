@@ -1,10 +1,9 @@
 section .data
-    xor_key db 0xAA             ; Clé XOR (doit correspondre à celle utilisée pour le chiffrement)
+    xor_key db 0xAA             ; Clé XOR
 
 section .bss
-    file_handle resq 1          ; Handle du fichier
-    buffer resb 256             ; Buffer pour lire le fichier
-
+    file_handle resq 1
+    buffer resb 256
 section .text
     global _start
 
