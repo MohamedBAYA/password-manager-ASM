@@ -37,6 +37,7 @@ section .text
     global handle_user_input
     global read_input_string
     global clear_input_buffer
+    extern add_password
 
 ; Fonction principale
 _start:
@@ -208,11 +209,9 @@ handle_user_input:
     ret
 
 .call_add_password:
-    ; Logique pour ajouter un mot de passe
-    lea rsi, [input_buffer]
-    mov rdx, 256
-    call read_input_string
-    jmp .end_handle_input
+    call add_password
+    call handle_user_input  ; On appelle proprement pour ne pas écraser l'adresse de retour
+    jmp .end_handle_input   ; Assurer un retour propre
 
 .call_retrieve_password:
     ; Logique pour retrouver un mot de passe
