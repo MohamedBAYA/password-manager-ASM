@@ -2,7 +2,7 @@ section .data
     prompt_filename_retrieve db '📄 Entrez le nom du fichier à consulter : ', 0
     prompt_filename_retrieve_len equ $ - prompt_filename_retrieve
 
-    retrieve_msg db 0xA, '🔍 Voici le contenu déchiffré :', 0xA, 0
+    retrieve_msg db 0xA, "🔍 Voici le contenu déchiffré : ", 0
     retrieve_msg_len equ $ - retrieve_msg
 
     error_msg db 0xA, "❌ Erreur lors de l'ouverture du fichier", 0xA, 0xA, 0

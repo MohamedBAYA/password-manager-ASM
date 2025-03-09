@@ -39,6 +39,7 @@ section .text
     global clear_input_buffer
     extern add_password
     extern retrieve_password
+    extern modify_password
 
 ; Fonction principale
 _start:
@@ -215,11 +216,11 @@ handle_user_input:
 
 .call_retrieve_password:
     call retrieve_password
-    jmp .end_handle_input
+    jmp .end_handle_input   ; Assurer un retour propre (Évite un segfault)
 
 .call_modify_password:
-    ; Logique pour modifier un mot de passe
-    jmp .end_handle_input
+    call modify_password
+    jmp .end_handle_input   ; Assurer un retour propre (Évite un segfault)
 
 .call_delete_password:
     ; Logique pour supprimer un mot de passe
