@@ -19,11 +19,15 @@ section .data
 
     xor_key               db 0xAA    ; Clé utilisée pour le chiffrement XOR
 
+    ; Chemin de base pour stocker les fichiers de mots de passe
+    base_directory        db "src/config/passwords/", 0
+
 section .bss
-    ; Réserves pour stocker les saisies utilisateur et buffers
-    filename_buffer       resb 256   ; Pour le nom du fichier
+    ; Buffers pour les saisies utilisateur et le chiffrement
+    filename_buffer       resb 256   ; Pour le nom de fichier saisi par l'utilisateur
     password_buffer       resb 256   ; Pour le mot de passe saisi
     encrypt_buffer        resb 256   ; Pour le mot de passe à chiffrer (copie + retour à la ligne)
+    full_filename_buffer  resb 512   ; Pour le chemin complet (base_directory + nom du fichier)
 
 section .text
     global add_password
@@ -60,6 +64,22 @@ add_password:
     mov rdi, separator
     mov rsi, separator_len
     call print_string
+
+    ; ─────────────────────────────────────────────
+    ; 1.5. Concaténer le chemin de base et le nom saisi
+    ; ─────────────────────────────────────────────
+    ; Copier le chemin de base dans full_filename_buffer
+    lea rdi, [full_filename_buffer]
+    mov rsi, base_directory
+    call strcpy
+    ; Calculer la longueur du chemin de base copié
+    lea rsi, [full_filename_buffer]
+    call strlen
+    mov rcx, rax        ; rcx = longueur de base_directory
+    ; Copier le nom de fichier (filename_buffer) à la suite
+    lea rdi, [full_filename_buffer + rcx]
+    mov rsi, filename_buffer
+    call strcpy
 
     ; ─────────────────────────────────────────────
     ; 2. Demande du mot de passe
@@ -104,7 +124,7 @@ add_password:
     ; 4. Ouverture du fichier et écriture
     ; ─────────────────────────────────────────────
     mov rax, 2
-    lea rdi, [filename_buffer]   ; nom du fichier (nettoyé)
+    lea rdi, [full_filename_buffer]   ; utiliser le chemin complet
     mov rsi, 0x441
     mov rdx, 420
     syscall
