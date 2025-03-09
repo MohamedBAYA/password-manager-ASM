@@ -38,6 +38,7 @@ section .text
     global read_input_string
     global clear_input_buffer
     extern add_password
+    extern retrieve_password
 
 ; Fonction principale
 _start:
@@ -213,7 +214,7 @@ handle_user_input:
     jmp .end_handle_input   ; Assurer un retour propre (Évite un segfault)
 
 .call_retrieve_password:
-    ; Logique pour retrouver un mot de passe
+    call retrieve_password
     jmp .end_handle_input
 
 .call_modify_password:
