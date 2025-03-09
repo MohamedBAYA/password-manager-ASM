@@ -7,9 +7,9 @@ section .bss
     line_buffer resb 256
 
 section .text
-    global _start
+    global chiffrement
 
-_start:
+chiffrement:
     ; Récupérer les arguments de la ligne de commande
     pop rcx                     ; Nombre d'arguments (argc)
     cmp rcx, 3

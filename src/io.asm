@@ -210,8 +210,7 @@ handle_user_input:
 
 .call_add_password:
     call add_password
-    call handle_user_input  ; On appelle proprement pour ne pas écraser l'adresse de retour
-    jmp .end_handle_input   ; Assurer un retour propre
+    jmp .end_handle_input   ; Assurer un retour propre (Évite un segfault)
 
 .call_retrieve_password:
     ; Logique pour retrouver un mot de passe
@@ -230,18 +229,18 @@ handle_user_input:
     jmp .end_handle_input
 
 ; Lire une chaîne de caractères depuis l'entrée standard
-; Entrée: RDI - pointeur vers le buffer de la chaîne
-;         RSI - longueur maximale de la chaîne à lire
+; Entrées : RDI = adresse du buffer, RSI = taille maximale à lire
+; Retour : nombre d'octets lus dans RAX (non utilisé ici)
 read_input_string:
-    push rax
-    push rdx
-
-    ; Lire l'entrée utilisateur
-    mov rax, 0
-    mov rdi, 0
+    push rbp
+    mov rbp, rsp
+    ; Sauvegarder le pointeur du buffer et la taille
+    mov rcx, rdi      ; RCX = buffer
+    mov rdx, rsi      ; RDX = taille max
+    mov rax, 0        ; syscall: read
+    mov rdi, 0        ; file descriptor: stdin
+    mov rsi, rcx      ; restaurer le buffer dans RSI
     syscall
-
-    pop rdx
-    pop rax
-
+    pop rbp
     ret
+

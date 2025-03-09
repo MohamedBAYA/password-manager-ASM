@@ -5,9 +5,9 @@ section .bss
     file_handle resq 1
     buffer resb 256
 section .text
-    global _start
+    global dechiffrement
 
-_start:
+dechiffrement:
     ; Récupérer les arguments de la ligne de commande
     pop rcx                     ; Nombre d'arguments (argc)
     cmp rcx, 2                  ; Vérifier qu'il y a exactement 1 argument (plus le nom du programme)
