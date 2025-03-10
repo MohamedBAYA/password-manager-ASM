@@ -1,9 +1,11 @@
 # 💾 Gestionnaire de Mots de Passe (ASM) 🔐
 ## Groupe 10 & 11 - (4Si3)
 
-Le gestionnaire de mots de passe développé entièrement en assembleur x64 pour une gestion sécurisée et optimisée de vos mots de passe.
+Le gestionnaire de mots de passe développé entièrement en assembleur x64 pour une gestion sécurisée et optimisée des mots de passe.
 
-![Logo](img/logo/password-manager.webp)
+<p align="center">
+  <img src="img/logo/password-manager.webp" alt="Logo">
+</p>
 
 ---
 

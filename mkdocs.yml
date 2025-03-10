@@ -1,0 +1,4 @@
+site_name: Gestionnaire de Mots de Passe ASM
+nav:
+  - Accueil: README.md
+  - Documentation: docs/docs.md
