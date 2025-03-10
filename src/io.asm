@@ -40,9 +40,14 @@ section .text
     extern add_password
     extern retrieve_password
     extern modify_password
+    extern master_password
+    extern delete_password
 
 ; Fonction principale
 _start:
+    ; Vérification du mot de passe maître avant d'accéder à l'interface
+    call master_password
+
     .main_loop:
         call display_menu
         call handle_user_input
@@ -223,7 +228,7 @@ handle_user_input:
     jmp .end_handle_input   ; Assurer un retour propre (Évite un segfault)
 
 .call_delete_password:
-    ; Logique pour supprimer un mot de passe
+    call delete_password
     jmp .end_handle_input
 
 .call_exit_program:

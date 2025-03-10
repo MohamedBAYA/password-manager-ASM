@@ -1,50 +1,119 @@
 # 💾 Gestionnaire de Mots de Passe (ASM) 🔐
+## Groupe 10 & 11 - (4Si3)
 
-## 📌 Description
-Un gestionnaire de mots de passe simple, développé en assembleur **x64**, permettant de :  
-✅ **Ajouter, consulter et supprimer** des mots de passe.  
-✅ **Chiffrer** les mots de passe pour les protéger.  
-✅ **Stocker** les mots de passe dans un fichier sécurisé.  
+Le gestionnaire de mots de passe développé entièrement en assembleur x64 pour une gestion sécurisée et optimisée de vos mots de passe.
 
----
-
-## 🎯 Objectifs
-🎯 Appliquer les concepts **d'assembleur avancé**.  
-🎯 Implémenter des **fonctionnalités essentielles** d'un gestionnaire de mots de passe.  
-🎯 Mettre en œuvre un **chiffrement basique et efficace**.  
+![Logo](img/logo/password-manager.webp)
 
 ---
 
-## 📌 Répartition des Tâches
+## 🚀 Fonctionnalités
 
-👤 **Gestion des E/S utilisateur** (**[Dylan]**)  
-➜ Développement des **entrées/sorties** : lecture du clavier, affichage du menu et interaction avec l'utilisateur.  
-➜ Masquer la saisie des mots de passe lorsqu'ils sont tapés.  
-
-🔐 **Chiffrement des mots de passe** (**[Clément]**)  
-➜ Implémentation d'un **chiffrement XOR** dans un premier temps.  
-➜ Si le temps le permet, ajout d’un chiffrement plus avancé comme **AES** ou **SHA**.  
-
-📁 **Gestion du stockage** (**[Jordan]**)  
-➜ Lecture et écriture des mots de passe dans un **fichier sécurisé**.  
-➜ Assurer la gestion des erreurs et la protection contre la corruption du fichier.  
-
-🛠 **Intégration & Gestion globale** (**[Mohamed]**)  
-➜ **Assembler toutes les parties** en un programme fonctionnel.  
-➜ Vérifier la **compatibilité des modules** et gérer les appels entre eux.  
-➜ **Tests et débogage** pour s'assurer que chaque partie fonctionne correctement ensemble.  
-➜ Éventuellement, gérer l’**optimisation** du programme pour de meilleures performances.  
+- ✅ **Ajouter** un nouveau mot de passe
+- ✅ **Retrouver** un mot de passe existant
+- ✅ **Modifier** un mot de passe
+- ✅ **Supprimer** un mot de passe existant
+- 🔐 **Protection avec un mot de passe maître** (stocké et chiffré)
+- ❌ **Quitter le programme**
 
 ---
 
-## 📁 Structure du projet
-📂 **`src/`** → Contient le **code source** divisé par modules.  
-🛠 **`tests/`** → Contient les **scripts de test** pour chaque module individuellement.  
-📜 **`docs/`** → Documentation technique et notes sur le projet.  
+## 🛠 Installation
+
+Clonez le dépôt :
+
+```bash
+# En https
+git clone https://github.com/MohamedBAYA/password-manager-ASM.git
+cd password-manager-ASM
+
+# En ssh
+git clone git@github.com:MohamedBAYA/password-manager-ASM.git
+cd password-manager-ASM
+```
+
+Compilation du programme :
+
+```bash
+chmod +x assemble.sh
+./assemble.sh
+```
 
 ---
 
-## 📌 Suivi & Améliorations
-- ✅ **Phase 1** : Développement des modules individuels et attributions de rôles. (Réu 1 - Samedi 01 15h00)
-- 🔄 **Phase 2** : Affinements des modules et intégration + tests. (Réu 2 - A définir)
-- 📊 **Phase 3** : Finalisation et documentation (Réu 3 - A définir).  
+## 🚀 Lancement du programme
+
+Si le fichier bash n'as pas lancer le binaire correctement, où que vous ne souhaitez pas le recompiler/assembler, exécutez simplement le gestionnaire de mots de passe avec la commande ci dessous :
+
+```bash
+./tests/password-manager
+```
+
+Lors du premier lancement, définissez votre mot de passe maître. Celui-ci sera demandé à chaque démarrage pour garantir la sécurité de vos données.
+
+---
+
+## 🗂 Structure du projet
+
+- `src/`
+  - `io.asm` *(Interface utilisateur et interactions)*
+  - `functions/`
+    - `add_password.asm` *(Fonction d'ajout de mot de passe - Option 1)*
+    - `retrieve_password.asm` *(Fonction de récupération de mot de passe - Option 2)*
+    - `modify_password.asm` *(Fonction de modification de mot de passe - Option 3)*
+    - `delete_password.asm` *(Fonction de suppression de mot de passe - Option 4)*
+    - `master_password.asm` *(Fonction d'ajout/verification du mot de passe maître - Au lancement + Option 4)*
+  - `chiffrement.asm` *(Fonction de chiffrement de mot de passe + création de fichier sécurisé - Option 1/3)*
+  - `dechiffrement.asm` *(Fonction de dechiffrement de mot de passe - Option 1/2)*
+
+- `tests/`
+  - Contient les fichiers objet et le binaire final après l'assemblage et la compilation.
+
+- `src/config/`
+  - `master/`
+    - Stockage sécurisé du mot de passe maître (chiffré).
+  - `passwords/`
+    - Stockage sécurisé des mots de passe utilisateur (chiffrés).
+
+---
+
+## 🚀 Compilation et exécution
+
+Exécutez simplement le script `assemble.sh` à la racine du projet :
+
+```bash
+./assemble.sh
+```
+
+Ce script génère l'exécutable nommé `password-manager` et le lance directement après compilation.
+
+---
+
+## 🚀 Contributions
+
+Si vous souhaitez contribuer au projet, vous pouvez améliorer la sécurité en implémentant des algorithmes de chiffrement plus robustes (AES, SHA256, etc.) en assembleur.
+
+---
+
+## 📋 Équipe
+
+| Rôle                    | Membre        |
+|--------------------------|------------------|
+| Interface utilisateur | Dylan |
+| Chiffrement             | Clément x Jordan          |
+| Intégration & Tests       | All             |
+| Débogage et optimisation | Mohamed          |
+| Documentation | Mohamed |
+
+---
+
+## 📅 Roadmap
+
+- [x] Interface utilisateur fonctionnelle
+- [x] Ajouter / Retrouver / Modifier un mot de passe
+- [x] Supprimer un mot de passe
+- [x] Mot de passe maître opérationnel
+
+---
+
+© 2025 ESGI – Projet Assembleur Avancé.
